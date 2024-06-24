@@ -848,13 +848,13 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     singularName: 'category';
     pluralName: 'categories';
     displayName: 'category';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -905,6 +905,28 @@ export interface ApiChooseusChooseus extends Schema.CollectionType {
   };
 }
 
+export interface ApiGoodGood extends Schema.CollectionType {
+  collectionName: 'goods';
+  info: {
+    singularName: 'good';
+    pluralName: 'goods';
+    displayName: 'good';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::good.good', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::good.good', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiNotfoundNotfound extends Schema.CollectionType {
   collectionName: 'notfounds';
   info: {
@@ -942,6 +964,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
     singularName: 'product';
     pluralName: 'products';
     displayName: 'product';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -952,7 +975,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
     price: Attribute.Decimal;
     discount: Attribute.Integer;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    popular: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -964,6 +986,36 @@ export interface ApiProductProduct extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSliderSlider extends Schema.CollectionType {
+  collectionName: 'sliders';
+  info: {
+    singularName: 'slider';
+    pluralName: 'sliders';
+    displayName: 'slider';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::slider.slider',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::slider.slider',
       'oneToOne',
       'admin::user'
     > &
@@ -993,8 +1045,10 @@ declare module '@strapi/types' {
       'api::banner.banner': ApiBannerBanner;
       'api::category.category': ApiCategoryCategory;
       'api::chooseus.chooseus': ApiChooseusChooseus;
+      'api::good.good': ApiGoodGood;
       'api::notfound.notfound': ApiNotfoundNotfound;
       'api::product.product': ApiProductProduct;
+      'api::slider.slider': ApiSliderSlider;
     }
   }
 }
