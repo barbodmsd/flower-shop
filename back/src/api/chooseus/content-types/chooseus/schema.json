@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chooseuses",
+  "info": {
+    "singularName": "chooseus",
+    "pluralName": "chooseuses",
+    "displayName": "chooseus"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
