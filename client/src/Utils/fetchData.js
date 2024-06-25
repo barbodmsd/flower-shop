@@ -6,7 +6,6 @@ const fetchData = async (url, option = {}) => {
     const data = await res.json();
     return data.data;
   } catch (error) {
-    // alert("Network Error!");
     message({type:'error',message:'Network error!'})
   }
 };

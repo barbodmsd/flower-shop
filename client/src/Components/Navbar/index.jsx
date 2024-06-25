@@ -13,6 +13,7 @@ import logo from "./../../../public/assets/logo.png";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import SellRoundedIcon from '@mui/icons-material/SellRounded';
 function HideOnScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -67,6 +68,12 @@ export default function Navbar(props) {
                   Home
                 </Button>
               </Link>
+               {/* products */}
+             <Link to={'/products'}><IconButton>
+                <SellRoundedIcon sx={{
+                    color:'txt'
+                }}/>
+             </IconButton></Link>
             </Stack>
             {/* right side */}
             <Stack direction={"row"} alignItems={"center"} gap={"12px"}>
