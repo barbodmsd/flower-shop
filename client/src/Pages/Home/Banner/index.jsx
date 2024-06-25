@@ -12,7 +12,6 @@ export default function Banner() {
       setBanner(res);
     })();
   }, []);
-  console.log(banner);
   return (
     <>
       <Stack direction={"row"} width={"100%"} height={"60vh"}>
@@ -23,7 +22,7 @@ export default function Banner() {
           width='50%'
           sx={{ px: "20px", bgcolor: "bglight" }}>
           <Stack gap={"15px"}>
-            <Typography fontSize={"3em"} color={"txt"}>
+            <Typography component={'h1'} fontSize={"3em"} color={"txt"}>
               The rare heavenly
               <br />
               fresh flowers
