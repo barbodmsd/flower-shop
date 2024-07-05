@@ -7,7 +7,7 @@ export default function Loading() {
     <>
       <Box
         sx={{
-            // zIndex:10000,
+            zIndex:10000,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

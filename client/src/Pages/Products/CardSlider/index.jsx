@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import fetchData from "../../../Utils/fetchData";
 
-export const ProductsSlider = ({ img, id, name, price, discount }) => {
+export const ProductsCard = ({ img, id, name, price, discount }) => {
   return (
     <Card sx={{ width: 300, height: 370 }}>
       <CardMedia sx={{ height: 200 }} image={img} title={name} />
@@ -23,11 +23,11 @@ export const ProductsSlider = ({ img, id, name, price, discount }) => {
           {name}
         </Typography>
         <Typography variant='body2' color='text.secondary'>
-          Price : {price}
+          Price : ${price}
         </Typography>
         {discount && (
           <Typography variant='body2' color='text.secondary'>
-            DiscountPrice : {price * ((1 - discount) / 100)}
+            DiscountPrice : ${price * (1 - discount / 100)}
           </Typography>
         )}
       </CardContent>
@@ -52,7 +52,7 @@ export default function CardSlider() {
   }, []);
   const items = products?.map((e, index) => (
     <SwiperSlide key={index}>
-      <ProductsSlider
+      <ProductsCard
         id={e.id}
         name={e.attributes.name}
         price={e.attributes.price}
