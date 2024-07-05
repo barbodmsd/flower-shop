@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "./Banner";
 import GoodSlider from "./GoodSlider";
 import Collection from "./Collection";
+import ChooseUs from "./CooseUs";
 
 export default function Home() {
   return (
@@ -12,6 +13,8 @@ export default function Home() {
       <GoodSlider/>
       {/* collection slider */}
       <Collection/>
+      {/* choose us */}
+      <ChooseUs/>
     </>
   );
 }
