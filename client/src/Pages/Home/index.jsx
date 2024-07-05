@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import GoodSlider from "./GoodSlider";
 import Collection from "./Collection";
 import ChooseUs from "./CooseUs";
+import Asks from "./Asks";
 
 export default function Home() {
   return (
@@ -15,6 +16,8 @@ export default function Home() {
       <Collection/>
       {/* choose us */}
       <ChooseUs/>
+      {/* asks */}
+      <Asks/>
     </>
   );
 }
