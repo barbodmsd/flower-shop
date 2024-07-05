@@ -1,7 +1,11 @@
 import React from 'react'
+import CardSlider from './CardSlider'
 
 export default function Products() {
   return (
-    <div>Products</div>
+    <>
+    {/* card slider */}
+    <CardSlider/>
+    </>
   )
 }
