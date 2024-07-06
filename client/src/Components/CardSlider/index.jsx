@@ -12,7 +12,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import fetchData from "../../../Utils/fetchData";
+import fetchData from "../../Utils/fetchData";
 
 export const ProductsCard = ({ img, id, name, price, discount }) => {
   return (
@@ -40,13 +40,11 @@ export const ProductsCard = ({ img, id, name, price, discount }) => {
   );
 };
 
-export default function CardSlider() {
+export default function CardSlider({ catalogs }) {
   const [products, setProducts] = useState();
   useEffect(() => {
     (async () => {
-      const res = await fetchData(
-        "products?populate=*&pagination[page]=2&pagination[pageSize]=10"
-      );
+      const res = await fetchData(`products?populate=*&filters[categories][id]=${catalogs}`);
       setProducts(res);
     })();
   }, []);
@@ -58,8 +56,7 @@ export default function CardSlider() {
         price={e.attributes.price}
         discount={e.attributes.discount}
         img={
-          import.meta.env.VITE_URL +
-          e?.attributes?.image?.data?.attributes?.url
+          import.meta.env.VITE_URL + e?.attributes?.image?.data?.attributes?.url
         }
       />
     </SwiperSlide>
@@ -69,15 +66,13 @@ export default function CardSlider() {
     <>
       <Stack width={"100%"} height={"500px"} p={"10px"}>
         <Swiper
-        slidesPerView={4}
+          slidesPerView={4}
           pagination={{
             dynamicBullets: true,
           }}
           modules={[Pagination]}
           className='cardSlider'>
-          {
-            items
-          }
+          {items}
         </Swiper>
       </Stack>
     </>

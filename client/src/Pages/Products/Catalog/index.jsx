@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import fetchData from "../../../Utils/fetchData";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { ProductsCard } from "../CardSlider";
 import Loading from "../../../Components/Loading";
+import { ProductsCard } from "../../../Components/CardSlider";
 
 export default function Catalog() {
   const [products, setProducts] = useState();
