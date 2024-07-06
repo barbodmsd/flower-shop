@@ -12,6 +12,7 @@ import NotFound from "./Pages/NotFound";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+import Search from "./Pages/Search";
 
 const theme = createTheme({
   palette: {

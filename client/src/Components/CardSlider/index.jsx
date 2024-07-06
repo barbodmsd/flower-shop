@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./CardSlider.css";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Stack } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -66,11 +66,14 @@ export default function CardSlider({ catalogs }) {
     <>
       <Stack width={"100%"} height={"500px"} p={"10px"}>
         <Swiper
+        autoplay={{
+          delay:2500
+        }}
           slidesPerView={4}
           pagination={{
             dynamicBullets: true,
           }}
-          modules={[Pagination]}
+          modules={[Pagination,Autoplay]}
           className='cardSlider'>
           {items}
         </Swiper>

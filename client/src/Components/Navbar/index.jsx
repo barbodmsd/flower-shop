@@ -14,7 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import PropTypes from "prop-types";
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "./../../../public/assets/logo.png";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -22,6 +22,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import SellRoundedIcon from "@mui/icons-material/SellRounded";
 import { useSelector } from "react-redux";
+import fetchData from "../../Utils/fetchData";
 function HideOnScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -47,8 +48,63 @@ HideOnScroll.propTypes = {
   window: PropTypes.func,
 };
 
+export const SearchResult = ({ img, name, id }) => {
+  return (
+    <Link to={`product-details/${id}/${name}`}>
+      <Stack
+      className={'box'}
+        sx={{ bgcolor: "bglight",mt:'5px' }}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        direction={"row"}
+        width={"100%"}
+        height={"80px"}>
+        <Stack width={"50%"} height={"100%"}>
+          <img src={img} width={"100%"} height={"100%"} />
+        </Stack>
+        <Stack
+          width={"49%"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          height={"100%"}>
+          <Typography fontSize={"1.2em"} sx={{ color: "txt" }}>
+            {name.slice(0,7)}
+          </Typography>
+        </Stack>
+      </Stack>
+    </Link>
+  );
+};
+
 export default function Navbar(props) {
   const listLength = useSelector((state) => state.cartSlice.list).length;
+  const [inpValue, setInpValue] = useState();
+  const [result, setResult] = useState();
+  window.addEventListener("click", (e) => {
+    if (!e.target.closest("searchBox") || e.target.closest('box')) {
+      setInpValue("");
+    }
+  });
+  useEffect(() => {
+    (async () => {
+      const res = await fetchData(
+        `products?populate=*&filters[name][$containsi]=${
+          inpValue && inpValue
+        }&pagination[page]=1&pagination[pageSize]=3`
+      );
+      setResult(res);
+    })();
+  }, [inpValue]);
+  const items = result?.map((e, index) => (
+    <SearchResult
+      key={index}
+      img={
+        import.meta.env.VITE_URL + e?.attributes?.image?.data?.attributes?.url
+      }
+      name={e?.attributes?.name}
+      id={e.id}
+    />
+  ));
   return (
     <>
       <CssBaseline />
@@ -92,12 +148,17 @@ export default function Navbar(props) {
             <Stack direction={"row"} alignItems={"center"} gap={"12px"}>
               {/* search */}
               <Box
-                width={"170px"}
+                className={"searchBox"}
+                width={"200px"}
                 sx={{
                   bgcolor: "bg",
                   borderRadius: "5px",
+                  position: "relative",
                 }}>
                 <Input
+                  placeholder={"search..."}
+                  value={inpValue}
+                  onChange={(e) => setInpValue(e.target.value)}
                   endAdornment={
                     <InputAdornment position='end'>
                       <SearchRoundedIcon sx={{ color: "txt" }} />
@@ -106,13 +167,26 @@ export default function Navbar(props) {
                   fullWidth
                   disableUnderline={true}
                   sx={{
-                    px: " 10px ",
+                    p: "3px  10px ",
                   }}
                 />
+                <Stack
+                  sx={{
+                    width: "100%",
+                    minHeight: inpValue ? "250px" : "0px",
+                    bgcolor: "bglight",
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    right: 0,
+                    transition: "all 0.5s",
+                  }}>
+                  {inpValue && items}
+                </Stack>
               </Box>
               {/* cart */}
               <Link to={"/cart"}>
-                <Badge badgeContent={listLength} sx={{color:'txt'}}>
+                <Badge badgeContent={listLength} sx={{ color: "txt" }}>
                   <ShoppingBasketIcon
                     sx={{
                       color: "txt",
