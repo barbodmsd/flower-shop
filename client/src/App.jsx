@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import Products from "./Pages/Products";
 import ProductDetails from "./Pages/ProductDetails";
@@ -11,6 +11,7 @@ import Auth from "./Pages/Auth";
 import NotFound from "./Pages/NotFound";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 
 const theme = createTheme({
   palette: {
@@ -19,10 +20,11 @@ const theme = createTheme({
     bglight: "#f3d6d5",
   },
 });
-export const message=({type,message})=>{
-  return toast[type](message)
-} 
+export const message = ({ type, message }) => {
+  return toast[type](message);
+};
 export default function App() {
+  const { token } = useSelector((state) => state.authSlice);
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -36,7 +38,10 @@ export default function App() {
               element={<ProductDetails />}
             />
             <Route path='/cart' element={<Cart />} />
-            <Route path='/auth' element={<Auth />} />
+            <Route
+              path='/auth'
+              element={token ? <Navigate to={"/"} /> : <Auth />}
+            />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </Box>
