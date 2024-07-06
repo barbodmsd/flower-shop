@@ -1,4 +1,11 @@
-import { Button, IconButton, Input, InputAdornment, Stack } from "@mui/material";
+import {
+  Badge,
+  Button,
+  IconButton,
+  Input,
+  InputAdornment,
+  Stack,
+} from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,10 +17,11 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import logo from "./../../../public/assets/logo.png";
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import SellRoundedIcon from '@mui/icons-material/SellRounded';
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import SellRoundedIcon from "@mui/icons-material/SellRounded";
+import { useSelector } from "react-redux";
 function HideOnScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -40,6 +48,7 @@ HideOnScroll.propTypes = {
 };
 
 export default function Navbar(props) {
+  const listLength = useSelector((state) => state.cartSlice.list).length;
   return (
     <>
       <CssBaseline />
@@ -68,16 +77,20 @@ export default function Navbar(props) {
                   Home
                 </Button>
               </Link>
-               {/* products */}
-             <Link to={'/products'}><IconButton>
-                <SellRoundedIcon sx={{
-                    color:'txt'
-                }}/>
-             </IconButton></Link>
+              {/* products */}
+              <Link to={"/products"}>
+                <IconButton>
+                  <SellRoundedIcon
+                    sx={{
+                      color: "txt",
+                    }}
+                  />
+                </IconButton>
+              </Link>
             </Stack>
             {/* right side */}
             <Stack direction={"row"} alignItems={"center"} gap={"12px"}>
-                {/* search */}
+              {/* search */}
               <Box
                 width={"170px"}
                 sx={{
@@ -86,7 +99,9 @@ export default function Navbar(props) {
                 }}>
                 <Input
                   endAdornment={
-                    <InputAdornment position='end'><SearchRoundedIcon sx={{color:'txt'}}/></InputAdornment>
+                    <InputAdornment position='end'>
+                      <SearchRoundedIcon sx={{ color: "txt" }} />
+                    </InputAdornment>
                   }
                   fullWidth
                   disableUnderline={true}
@@ -96,17 +111,25 @@ export default function Navbar(props) {
                 />
               </Box>
               {/* cart */}
-             <Link to={'/cart'}><IconButton>
-                <ShoppingBasketIcon sx={{
-                    color:'txt'
-                }}/>
-             </IconButton></Link>
+              <Link to={"/cart"}>
+                <Badge badgeContent={listLength} sx={{color:'txt'}}>
+                  <ShoppingBasketIcon
+                    sx={{
+                      color: "txt",
+                    }}
+                  />
+                </Badge>
+              </Link>
               {/* auth */}
-             <Link to={'/auth'}><IconButton>
-                <PersonRoundedIcon sx={{
-                    color:'txt'
-                }}/>
-             </IconButton></Link>
+              <Link to={"/auth"}>
+                <IconButton>
+                  <PersonRoundedIcon
+                    sx={{
+                      color: "txt",
+                    }}
+                  />
+                </IconButton>
+              </Link>
             </Stack>
           </Stack>
         </AppBar>
